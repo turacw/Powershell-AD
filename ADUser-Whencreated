@@ -1,0 +1,10 @@
+#This powershell command show when ad users has created
+
+# When user Ali who is ADuser has created
+Get-ADUser Ali -Properties whenCreated
+
+# When all users has created
+Get-ADUser -Filter * -Properties whenCreated | Sort-Object -Property whenCreated -Descending
+
+## When all users has created show by day
+Get-ADUser -Filter * -Properties whenCreated | Sort-Object -Property whenCreated -Descending | Select-Object -Property Name,@{n='Account age (days)';e={(New-TimeSpan -Start $PSItem.whenCreated).Days}}
